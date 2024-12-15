@@ -12,7 +12,8 @@
             [clojure.tools.namespace.repl :as tn-repl]
             [malli.core :as malc]
             [malli.registry :as malr]
-            [nrepl.cmdline :as nrepl-cmd])
+            [nrepl.cmdline :as nrepl-cmd]
+            [com.example.htmx.click-to-edit :as click-to-edit])
   (:gen-class))
 
 (def modules
@@ -20,7 +21,8 @@
    (biff/authentication-module {})
    home/module
    schema/module
-   worker/module])
+   worker/module
+   click-to-edit/module])
 
 (def routes [["" {:middleware [mid/wrap-site-defaults]}
               (keep :routes modules)]

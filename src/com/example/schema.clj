@@ -14,7 +14,15 @@
          [:xt/id       :msg/id]
          [:msg/user    :user/id]
          [:msg/text    :string]
-         [:msg/sent-at inst?]]})
+         [:msg/sent-at inst?]]
+
+   :contact/id :uuid
+   :contact    [:map {:closed true}
+                [:xt/id :contact/id]
+                [:contact/first-name :string]
+                [:contact/last-name :string]
+                [:contact/email :string]
+                [:contact/status :boolean]]})
 
 (def module
   {:schema schema})

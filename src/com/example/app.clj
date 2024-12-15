@@ -10,10 +10,10 @@
 
 (defn set-foo [{:keys [session params] :as ctx}]
   (biff/submit-tx ctx
-    [{:db/op :update
-      :db/doc-type :user
-      :xt/id (:uid session)
-      :user/foo (:foo params)}])
+                  [{:db/op :update
+                    :db/doc-type :user
+                    :xt/id (:uid session)
+                    :user/foo (:foo params)}])
   {:status 303
    :headers {"location" "/app"}})
 
@@ -34,10 +34,10 @@
 
 (defn set-bar [{:keys [session params] :as ctx}]
   (biff/submit-tx ctx
-    [{:db/op :update
-      :db/doc-type :user
-      :xt/id (:uid session)
-      :user/bar (:bar params)}])
+                  [{:db/op :update
+                    :db/doc-type :user
+                    :xt/id (:uid session)
+                    :user/bar (:bar params)}])
   (biff/render (bar-form {:value (:bar params)})))
 
 (defn message [{:msg/keys [text sent-at]}]
@@ -59,10 +59,10 @@
 (defn send-message [{:keys [session] :as ctx} {:keys [text]}]
   (let [{:keys [text]} (cheshire/parse-string text true)]
     (biff/submit-tx ctx
-      [{:db/doc-type :msg
-        :msg/user (:uid session)
-        :msg/text text
-        :msg/sent-at :db/now}])))
+                    [{:db/doc-type :msg
+                      :msg/user (:uid session)
+                      :msg/text text
+                      :msg/sent-at :db/now}])))
 
 (defn chat [{:keys [biff/db]}]
   (let [messages (q db
