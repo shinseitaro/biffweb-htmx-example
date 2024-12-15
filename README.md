@@ -12,7 +12,7 @@ I have been trying to implement examples on HTMX.org using Biffweb. This reposit
 
 | status | Pattern                                  | Description                                                                       | MEMO |
 | :----: | :--------------------------------------- | :-------------------------------------------------------------------------------- | ---- |
-|   —    | Click To Edit                            | inline editing of a data object                                                   |      |
+|   ✔    | Click To Edit                            | inline editing of a data object                                                   |      |
 |   —    | Bulk Update                              | bulk updating of multiple rows of data                                            |      |
 |   —    | Click To Load                            | clicking to load more rows in a table                                             |      |
 |   —    | Delete Row                               | row deletion in a table                                                           |      |
