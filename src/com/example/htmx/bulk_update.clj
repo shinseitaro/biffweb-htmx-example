@@ -61,9 +61,17 @@
                :xt/id          (:xt/id contact)
                :contact/status false})) current-contact)
      (biff/submit-tx ctx))
-    ;; TODO : ここの解決から。これはだめだと思う。
-    {:status  303
-     :headers {"location" "/bulk-update"}}))
+
+    (->>
+     current-contact
+     (map (fn [contact]
+            (if (.contains id (:xt/id contact))
+              (assoc contact :contact/status true)
+              (assoc contact :contact/status false))))
+     show-table
+     biff/render)))
+
+
 
 (defn app [{:keys [biff/db]
             :as   ctx}]
