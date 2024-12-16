@@ -4,7 +4,9 @@
 
 
 (defn app [ctx]
-  (ui/page {} [:p "Hello"]))
+  (ui/page
+   {}
+   [:p "Hello"]))
 
 (def module
   {:routes ["/click-to-load"
