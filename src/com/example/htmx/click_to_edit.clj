@@ -13,42 +13,51 @@
    [:div [:label "First Name: "]  first-name]
    [:div [:label "Last Name: "]  last-name]
    [:div [:label "Email: "]  email]
-   [:button {:class "btn btn-info"
+   [:button {:class  "btn btn-info"
              :hx-get "/click-to-edit/edit"} "Click To Edit"]])
 
-(defn update-a-contact [{:keys [params] :as ctx}]
+(defn update-a-contact [{:keys [params]
+                         :as   ctx}]
   (let [{:keys [id first-name last-name email]} params]
     (biff/submit-tx ctx
-                    [{:db/doc-type :contact
-                      :xt/id (parse-uuid id)
+                    [{:db/doc-type  :contact
+                      :xt/id        (parse-uuid id)
                       :db.op/upsert {:contact/first-name first-name
-                                     :contact/last-name last-name
-                                     :contact/email email}}])
+                                     :contact/last-name  last-name
+                                     :contact/email      email}}])
     (biff/render (show-contact first-name last-name email))))
 
-(defn edit-contact [{:keys [biff/db] :as ctx}]
+(defn edit-contact [{:keys [biff/db]
+                     :as   ctx}]
   (let [{:keys [contact/first-name contact/last-name contact/email xt/id]} (fetch-a-contact db)]
     (biff/form
      {}
      [:div {:hx-target "this"}
       [:label "First Name "]
-      [:input {:type "text" :name "first-name" :value first-name}]]
+      [:input {:type  "text"
+               :name  "first-name"
+               :value first-name}]]
      [:div
       [:label "Last Name "]
-      [:input {:type "text" :name "last-name" :value last-name}]]
+      [:input {:type  "text"
+               :name  "last-name"
+               :value last-name}]]
      [:div
       [:label "Email "]
-      [:input {:type "text" :name "email" :value email}]]
+      [:input {:type  "text"
+               :name  "email"
+               :value email}]]
 
      [:div {:class "flex p-2 gap-2"}
-      [:button {:class "btn btn-primary"
+      [:button {:class  "btn btn-primary"
                 :hx-get "/click-to-edit"} "cancel"]
-      [:button {:class "btn btn-primary"
+      [:button {:class   "btn btn-primary"
                 :hx-post "/click-to-edit/save"
                 :hx-vals (cheshire/generate-string {:id id})} "save"]])))
 
 
-(defn app [{:keys [biff/db] :as ctx}]
+(defn app [{:keys [biff/db]
+            :as   ctx}]
   (let [{:contact/keys [first-name last-name email]} (fetch-a-contact db)]
     (ui/page
      {}

@@ -3,7 +3,9 @@
             [com.biffweb :as biff :refer [q]]
             [clojure.edn :as edn]
             [clojure.java.io :as io]
-            [cheshire.core :as cheshire]))
+            [cheshire.core :as cheshire]
+            [com.example.email :as email]
+            [com.example.htmx.bulk-update :as bulk-update]))
 
 (defn get-context []
   (biff/merge-context @main/system))
@@ -32,15 +34,16 @@
                      :recaptcha/secret-key]
                      ; ...
 
-        get-secrets (fn [{:keys [biff/secret] :as config}]
+        get-secrets (fn [{:keys [biff/secret]
+                          :as   config}]
                       (into {}
                             (map (fn [k]
                                    [k (secret k)]))
                             secret-keys))]
-    {:prod-config prod-config
-     :dev-config dev-config
+    {:prod-config  prod-config
+     :dev-config   dev-config
      :prod-secrets (get-secrets prod-config)
-     :dev-secrets (get-secrets dev-config)}))
+     :dev-secrets  (get-secrets dev-config)}))
 
 (comment
   ;; Call this function if you make a change to main/initial-system,
@@ -56,19 +59,21 @@
   (add-json-fixtures)
 
   ;; query contact data
-  (let [{:keys [biff/db] :as ctx} (get-context)]
+  (let [{:keys [biff/db]
+         :as   ctx} (get-context)]
     (q db
-       '{:find (pull e [*])
+       '{:find  (pull e [*])
          :where [[e :contact/email]]}))
 
   ;; Update an existing user's email address
-  (let [{:keys [biff/db] :as ctx} (get-context)
-        user-id (biff/lookup-id db :user/email "hello@example.com")]
+  (let [{:keys [biff/db]
+         :as   ctx} (get-context)
+        user-id                    (biff/lookup-id db :user/email "hello@example.com")]
     (biff/submit-tx ctx
                     [{:db/doc-type :user
-                      :xt/id user-id
-                      :db/op :update
-                      :user/email "new.address@example.com"}]))
+                      :xt/id       user-id
+                      :db/op       :update
+                      :user/email  "new.address@example.com"}]))
 
   (sort (keys (get-context)))
 
@@ -84,4 +89,29 @@
 
 (comment
   (biff/form {})
+  :rcf)
+
+(comment
+  (->>
+   (biff/q (:biff/db (get-context))
+           '{:find  (pull e [*])
+             :where [[e :contact/email]]})
+   (sort-by :contact/first-name)
+   (take 4))
+
+
+  :rcf)
+
+(comment
+  (bulk-update/fetch-data (:biff/db (get-context)))
+
+  (biff/submit-tx (get-context)
+                  [{:db/doc-type    :contact
+                    :xt/id          (parse-uuid "f742f54b-f3d9-48ef-a163-661c362777cc")
+                    :db/op          :update
+                    :contact/status true}])
+  :rcf)
+
+(comment
+  (bulk-update/fetch-data (:biff/db (get-context)))
   :rcf)

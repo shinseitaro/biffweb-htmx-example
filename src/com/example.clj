@@ -13,7 +13,8 @@
             [malli.core :as malc]
             [malli.registry :as malr]
             [nrepl.cmdline :as nrepl-cmd]
-            [com.example.htmx.click-to-edit :as click-to-edit])
+            [com.example.htmx.click-to-edit :as click-to-edit]
+            [com.example.htmx.bulk-update :as bulk-update])
   (:gen-class))
 
 (def modules
@@ -22,7 +23,8 @@
    home/module
    schema/module
    worker/module
-   click-to-edit/module])
+   click-to-edit/module
+   bulk-update/module])
 
 (def routes [["" {:middleware [mid/wrap-site-defaults]}
               (keep :routes modules)]
