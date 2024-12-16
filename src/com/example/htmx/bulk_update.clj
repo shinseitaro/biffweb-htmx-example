@@ -61,6 +61,7 @@
                :xt/id          (:xt/id contact)
                :contact/status false})) current-contact)
      (biff/submit-tx ctx))
+    ;; TODO : ここの解決から。これはだめだと思う。
     {:status  303
      :headers {"location" "/bulk-update"}}))
 
