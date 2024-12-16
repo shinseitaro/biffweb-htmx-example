@@ -11,7 +11,6 @@
 
 (defn show-table [contacts]
   [:div {:class "flex flex-col"}
-
    (biff/form
     {:hx-post "/bulk-update/users"
      :hx-swap "outerHTML"}
@@ -48,7 +47,6 @@
                               (string? id) [(parse-uuid id)]
                               (coll? id) (map parse-uuid id)
                               :else nil)]
-
     (->>
      (map (fn [contact]
             (if (.contains id (:xt/id contact))
