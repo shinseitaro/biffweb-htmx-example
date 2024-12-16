@@ -14,7 +14,8 @@
             [malli.registry :as malr]
             [nrepl.cmdline :as nrepl-cmd]
             [com.example.htmx.click-to-edit :as click-to-edit]
-            [com.example.htmx.bulk-update :as bulk-update])
+            [com.example.htmx.bulk-update :as bulk-update]
+            [com.example.htmx.click-to-load :as click-to-load])
   (:gen-class))
 
 (def modules
@@ -24,7 +25,9 @@
    schema/module
    worker/module
    click-to-edit/module
-   bulk-update/module])
+   bulk-update/module
+   click-to-load/module])
+
 
 (def routes [["" {:middleware [mid/wrap-site-defaults]}
               (keep :routes modules)]
@@ -38,7 +41,7 @@
 
 (defn generate-assets! [ctx]
   (biff/export-rum static-pages "target/resources/public")
-  (biff/delete-old-files {:dir "target/resources/public"
+  (biff/delete-old-files {:dir  "target/resources/public"
                           :exts [".html"]}))
 
 (defn on-save [ctx]
@@ -53,13 +56,13 @@
               (apply biff/safe-merge (keep :schema modules)))})
 
 (def initial-system
-  {:biff/modules #'modules
-   :biff/send-email #'email/send-email
-   :biff/handler #'handler
-   :biff/malli-opts #'malli-opts
-   :biff.beholder/on-save #'on-save
+  {:biff/modules             #'modules
+   :biff/send-email          #'email/send-email
+   :biff/handler             #'handler
+   :biff/malli-opts          #'malli-opts
+   :biff.beholder/on-save    #'on-save
    :biff.middleware/on-error #'ui/on-error
-   :biff.xtdb/tx-fns biff/tx-fns
+   :biff.xtdb/tx-fns         biff/tx-fns
    :com.example/chat-clients (atom #{})})
 
 (defonce system (atom {}))
