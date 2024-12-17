@@ -4,8 +4,8 @@
             [clojure.edn :as edn]
             [clojure.java.io :as io]
             [cheshire.core :as cheshire]
-            [com.example.email :as email]
-            [com.example.htmx.bulk-update :as bulk-update]))
+            [com.example.htmx.bulk-update :as bulk-update]
+            [com.example.htmx.click-to-load :as click-to-load]))
 
 (defn get-context []
   (biff/merge-context @main/system))
@@ -114,4 +114,8 @@
 
 (comment
   (bulk-update/fetch-data (:biff/db (get-context)))
+  :rcf)
+
+(comment
+  (click-to-load/fetch-data (:biff/db (get-context)) 3)
   :rcf)
