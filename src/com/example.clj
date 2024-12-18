@@ -15,7 +15,8 @@
             [nrepl.cmdline :as nrepl-cmd]
             [com.example.htmx.click-to-edit :as click-to-edit]
             [com.example.htmx.bulk-update :as bulk-update]
-            [com.example.htmx.click-to-load :as click-to-load])
+            [com.example.htmx.click-to-load :as click-to-load]
+            [com.example.htmx.delete-row :as delete-row])
   (:gen-class))
 
 (def modules
@@ -26,7 +27,8 @@
    worker/module
    click-to-edit/module
    bulk-update/module
-   click-to-load/module])
+   click-to-load/module
+   delete-row/module])
 
 
 (def routes [["" {:middleware [mid/wrap-site-defaults]}
