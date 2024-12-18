@@ -4,6 +4,9 @@ An experimental repository for implementing the examples from htmx.org using Bif
 
 I have been trying to implement examples on HTMX.org using Biffweb. This repository was created for a post in the [Clojure - Qiita Advent Calendar 2024](https://qiita.com/advent-calendar/2024/clojure_verse). I am not aiming to complete all the examples by the deadline (December 19, 2024), but I plan to finish them in the near future 😃.
 
+I've written some posts about this repository in Japanese. Please take a look.
+[htmx.org/examples using Biffweb](https://zenn.dev/shinseitaro/books/htmx-examples-using-biffweb)
+
 
 ## UI Examples 
 
@@ -15,7 +18,7 @@ I have been trying to implement examples on HTMX.org using Biffweb. This reposit
 |   ✔    | Click To Edit                            | inline editing of a data object                                                   |      |
 |   ✔    | Bulk Update                              | bulk updating of multiple rows of data                                            |      |
 |   ✔    | Click To Load                            | clicking to load more rows in a table                                             |      |
-|   —    | Delete Row                               | row deletion in a table                                                           |      |
+|   ✔    | Delete Row                               | row deletion in a table                                                           |      |
 |   —    | Edit Row                                 | how to edit rows in a table                                                       |      |
 |   —    | Lazy Loading                             | how to lazy load content                                                          |      |
 |   —    | Inline Validation                        | how to do inline field validation                                                 |      |
