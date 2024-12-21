@@ -19,7 +19,7 @@ I've written some posts about this repository in Japanese. Please take a look.
 |   ✔    | Bulk Update                              | bulk updating of multiple rows of data                                            |      |
 |   ✔    | Click To Load                            | clicking to load more rows in a table                                             |      |
 |   ✔    | Delete Row                               | row deletion in a table                                                           |      |
-|   —    | Edit Row                                 | how to edit rows in a table                                                       |      |
+|   ✔    | Edit Row                                 | how to edit rows in a table                                                       |      |
 |   —    | Lazy Loading                             | how to lazy load content                                                          |      |
 |   —    | Inline Validation                        | how to do inline field validation                                                 |      |
 |   —    | Infinite Scroll                          | infinite scrolling of a page                                                      |      |
