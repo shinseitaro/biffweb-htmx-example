@@ -17,7 +17,8 @@
             [com.example.htmx.bulk-update :as bulk-update]
             [com.example.htmx.click-to-load :as click-to-load]
             [com.example.htmx.delete-row :as delete-row]
-            [com.example.htmx.edit-row :as edit-row])
+            [com.example.htmx.edit-row :as edit-row]
+            [com.example.htmx.updating-other-content :as updating-other-content])
   (:gen-class))
 
 (def modules
@@ -30,7 +31,8 @@
    bulk-update/module
    click-to-load/module
    delete-row/module
-   edit-row/module])
+   edit-row/module
+   updating-other-content/module])
 
 
 (def routes [["" {:middleware [mid/wrap-site-defaults]}
