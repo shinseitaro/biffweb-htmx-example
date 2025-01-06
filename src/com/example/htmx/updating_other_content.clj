@@ -9,25 +9,9 @@
                  :where [[e :contact/email]]})
        (sort-by :contact/first-name)))
 
-;; (defn contact-list [db]
-;;   (let [contacts (fetch-data db)]
-;;     [:div {:class "overflow-x-auto"}
-;;      [:table {:class "table"}
-;;       [:thead
-;;        [:tr
-;;         [:th "First Name"]
-;;         [:th "Last Name"]
-;;         [:th "Email"]]]
-;;       [:tbody {:id "contacts-table"}
-;;        (for [contact contacts]
-;;          (let [{:contact/keys [first-name last-name email]} contact]
-;;            [:tr
-;;             [:td first-name]
-;;             [:td last-name]
-;;             [:td email]]))]]]))
-
 (defn contact-list [db]
-  [:div {:id "table-and-form"} ;; 全体をラップ、id をつける。
+  ;;  解決方法１：ターゲットを拡張
+  [:div {:id "table-and-form"}
    [:h2 "Contacts"]
    [:div {:class "h-1"}]
    (let [contacts (fetch-data db)]
@@ -71,24 +55,19 @@
                     :db.op/upsert {:contact/first-name first-name
                                    :contact/last-name  last-name
                                    :contact/email      email
-                                   :contact/status     true}}])) ;; とりあえずtrue
-
+                                   :contact/status     true}}]))
 
 (defn new-contact [{:keys [params]
                     :as   ctx}]
   (let [{:keys [first-name last-name email]} params]
     (submit-new-contact ctx first-name last-name email))
-  ;; TODO: 2025/01/06 ここの説明をZENNに書きつつSolution１を作成。マージコンテクストの使い方。
   (biff/render (contact-list (:biff/db (biff/merge-context ctx)))))
 
 (defn app [{:keys [biff/db]
             :as   ctx}]
   (ui/page
    {}
-   ;;  解決方法１：ターゲットを拡張
    (contact-list db)))
-
-
 
 (def module
   {:routes ["/updating-other-content"
