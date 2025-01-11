@@ -26,6 +26,7 @@
 
 (defn new-contact [{:keys [params]
                     :as   ctx}]
+
   (let [{:keys [first-name last-name email]} params]
     (submit-new-contact ctx first-name last-name email))
   (biff/render [:tbody
@@ -54,25 +55,25 @@
              [:td last-name]
              [:td email]]))]]]
 
-     [:div {:class "h-3"}
-      (biff/form
-       {:hx-post "/updating-other-content/contacts"
-        :hx-swap "none"}
-       [:div {:class "flex flex-col gap-1"}
-        [:h2  "Add Contact"]
-        [:input {:type        "text"
-                 :name        "first-name"
-                 :placeholder "First Name"}]
+     [:div {:class "h-3"}]
+     (biff/form
+      {:hx-post "/updating-other-content/contacts"
+       :hx-swap "none"}
+      [:div {:class "flex flex-col gap-1"}
+       [:h2  "Add Contact"]
+       [:input {:type        "text"
+                :name        "first-name"
+                :placeholder "First Name"}]
 
-        [:input {:type        "text"
-                 :name        "last-name"
-                 :placeholder "Last Name"}]
+       [:input {:type        "text"
+                :name        "last-name"
+                :placeholder "Last Name"}]
 
-        [:input {:type        "text"
-                 :name        "email"
-                 :placeholder "Email"}]
-        [:div
-         [:button {:class "btn"} "New Data"]]])])))
+       [:input {:type        "text"
+                :name        "email"
+                :placeholder "Email"}]
+       [:div
+        [:button {:class "btn"} "New Data"]]]))))
 
 
 (def module
