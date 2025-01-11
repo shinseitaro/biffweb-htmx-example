@@ -26,7 +26,6 @@
 
 (defn new-contact [{:keys [params]
                     :as   ctx}]
-
   (let [{:keys [first-name last-name email]} params]
     (submit-new-contact ctx first-name last-name email))
   (biff/render [:tbody
@@ -54,7 +53,6 @@
              [:td first-name]
              [:td last-name]
              [:td email]]))]]]
-
      [:div {:class "h-3"}]
      (biff/form
       {:hx-post "/updating-other-content/contacts"
