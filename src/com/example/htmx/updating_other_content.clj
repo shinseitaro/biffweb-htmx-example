@@ -8,9 +8,23 @@
                  :where [[e :contact/email]]})
        (sort-by :contact/first-name)))
 
-(defn contact-table [])
 
-(defn contacts "データを格納して contact-table でテーブルを再描画" [])
+(defn submit-new-contact [ctx first-name last-name email]
+  (biff/submit-tx ctx
+                  [{:db/doc-type  :contact
+                    :db.op/upsert {:contact/first-name first-name
+                                   :contact/last-name  last-name
+                                   :contact/email      email
+                                   :contact/status     true}}]))
+
+(defn new-contact [{:keys [params]
+                    :as   ctx}]
+  (let [{:keys [first-name last-name email]} params]
+    (submit-new-contact ctx first-name last-name email)))
+
+;; 45行目をここで描画する関数をかく。
+;; サーバが持つ全コンタクトを取得してテーブルとして描画する関数
+(defn contact-table [])
 
 (defn app [{:keys [biff/db]
             :as   ctx}]
@@ -58,6 +72,6 @@
 (def module
   {:routes ["/updating-other-content"
             ["/" {:get app}]
-            ["/contacts" {:post contacts}]
+            ["/contacts" {:post new-contact}]
             ["/contact/table" {:get contact-table}]]})
 
