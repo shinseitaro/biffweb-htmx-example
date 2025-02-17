@@ -8,6 +8,10 @@
                  :where [[e :contact/email]]})
        (sort-by :contact/first-name)))
 
+(defn contact-table [])
+
+(defn contacts "データを格納して contact-table でテーブルを再描画" [])
+
 (defn app [{:keys [biff/db]
             :as   ctx}]
   (let [contacts (fetch-data db)]
@@ -22,7 +26,9 @@
          [:th "First Name"]
          [:th "Last Name"]
          [:th "Email"]]]
-       [:tbody {:id "contacts-table"}
+       [:tbody {:id         "contacts-table"
+                :hx-get     "/updating-other-content/contact/table"
+                :hx-trigger "newContact from:body"}
         (for [contact contacts]
           (let [{:contact/keys [first-name last-name email]} contact]
             [:tr
@@ -31,7 +37,7 @@
              [:td email]]))]]]
      [:div {:class "h-3"}]
      (biff/form
-      {}
+      {:hx-post "/updating-other-content/contact"}
       [:div {:class "flex flex-col gap-1"}
        [:h2  "Add Contact"]
        [:input {:type        "text"
@@ -51,5 +57,7 @@
 
 (def module
   {:routes ["/updating-other-content"
-            ["/" {:get app}]]})
+            ["/" {:get app}]
+            ["/contacts" {:post contacts}]
+            ["/contact/table" {:get contact-table}]]})
 
