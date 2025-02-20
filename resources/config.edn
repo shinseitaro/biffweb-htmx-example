@@ -54,6 +54,7 @@
  ;; master:
  ;; :biff.tasks/git-deploy-cmd ["git" "push" "prod" "main:master"]
  :biff.tasks/git-deploy-cmd ["git" "push" "prod" "master"]
+ :biff.tasks/tailwind-version "v3.4.17"
 
  ;; Uncomment this line if you have any ssh-related problems:
  ;; :biff.tasks/skip-ssh-agent true
